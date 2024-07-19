@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +9,27 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 20px;
+            background-color: #f5f5f5; /* Light gray background */
         }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header-background {
+            background-color: #000;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            margin-bottom: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f9f9f9;
+        }
+        /* Table styles */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -109,144 +128,253 @@
                 padding: 8px;
             }
         }
+        /* Customizations */
+        tbody tr:hover {
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+        .print-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .print-button:hover {
+            background-color: #45a049;
+        }
+        /* Backgrounds */
+        .modal-background {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 0 0 5px 5px;
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
 
-<h1>Yoga Poses Chart</h1>
+<div class="container">
 
-<!-- Search and Filter -->
-<input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for poses...">
-<select id="filterSelect" onchange="filterTable()">
-    <option value="">Filter by...</option>
-    <option value="beginner">Beginner Poses</option>
-    <option value="intermediate">Intermediate Poses</option>
-    <option value="advanced">Advanced Poses</option>
-</select>
+    <div class="header-background">
+        <h1>Yoga Poses Chart</h1>
+    </div>
 
-<!-- Table -->
-<table>
-    <thead>
-        <tr>
-            <th>Yoga Pose</th>
-            <th>Description</th>
-            <th>Difficulty</th>
-            <th>Benefits</th>
-            <th>Contraindications</th>
-            <th>Variations</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Sample poses, you can add more -->
-        <tr>
-            <td>Downward Facing Dog (Adho Mukha Svanasana)</td>
-            <td>A foundational yoga pose that stretches the entire body, particularly the back, hamstrings, and shoulders. It also helps to calm the mind and improve focus.</td>
-            <td>Beginner</td>
-            <td>Improves flexibility, strengthens arms and legs, relieves back pain.</td>
-            <td>Avoid if you have carpal tunnel syndrome or pregnancy.</td>
-            <td>Variations include one-leg down dog, using blocks for support.</td>
-        </tr>
-        <tr>
-            <td>Tree Pose (Vrikshasana)</td>
-            <td>A balancing pose that strengthens the legs and improves focus and concentration. It also enhances hip flexibility and opens the chest.</td>
-            <td>Intermediate</td>
-            <td>Improves balance, strengthens legs, tones abdominal muscles.</td>
-            <td>Avoid if you have ankle or knee injuries.</td>
-            <td>Variations include hands in prayer position or arms extended overhead.</td>
-        </tr>
-        <tr>
-            <td>Warrior II Pose (Virabhadrasana II)</td>
-            <td>An energizing pose that builds strength in the legs and arms while opening the hips and chest. It improves stamina and balance.</td>
-            <td>Intermediate</td>
-            <td>Strengthens legs and arms, stretches hips and groins.</td>
-            <td>Avoid if you have high blood pressure or neck problems.</td>
-            <td>Variations include reversing the warrior or binding the arms.</td>
-        </tr>
-        <tr>
-            <td>Cobra Pose (Bhujangasana)</td>
-            <td>A gentle backbend that stretches the spine, chest, and shoulders, while strengthening the back muscles. It also helps to relieve stress and fatigue.</td>
-            <td>Beginner</td>
-            <td>Opens the chest, strengthens the spine, massages abdominal organs.</td>
-            <td>Avoid if you have a back injury or recent abdominal surgery.</td>
-            <td>Variations include baby cobra or upward facing dog.</td>
-        </tr>
-    </tbody>
-</table>
+    <!-- Search and Filter -->
+    <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for poses...">
+    <select id="filterSelect" onchange="filterTable()">
+        <option value="">Filter by...</option>
+        <option value="Beginner">Beginner Poses</option>
+        <option value="Intermediate">Intermediate Poses</option>
+        <option value="Advanced">Advanced Poses</option>
+    </select>
 
-<!-- Modal for Pose Details -->
-<div id="poseModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="modalTitle">Pose Name</h2>
-        <p id="modalDescription">Pose Description</p>
-        <div id="modalVideo" class="video-container">
-            <!-- Embed YouTube video or other instructional content -->
+    <!-- Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Yoga Pose</th>
+                <th>Description</th>
+                <th>Difficulty</th>
+                <th>Benefits</th>
+                <th>Contraindications</th>
+                <th>Variations</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Sample poses, you can add more -->
+            <tr onclick="openModal('Downward Facing Dog (Adho Mukha Svanasana)', 'A foundational yoga pose that stretches the entire body, particularly the back, hamstrings, and shoulders. It also helps to calm the mind and improve focus.', 'https://www.youtube.com/embed/Q0fSwsC2aj8')">
+                <td>Downward Facing Dog (Adho Mukha Svanasana)</td>
+                <td>A foundational yoga pose that stretches the entire body, particularly the back, hamstrings, and shoulders. It also helps to calm the mind and improve focus.</td>
+                <td>Beginner</td>
+                <td>Improves flexibility, strengthens arms and legs, relieves back pain.</td>
+                <td>Avoid if you have carpal tunnel syndrome or pregnancy.</td>
+                <td>Variations include one-leg down dog, using blocks for support.</td>
+            </tr>
+            <tr onclick="openModal('Tree Pose (Vrikshasana)', 'A balancing pose that strengthens the legs and improves focus and concentration. It also enhances hip flexibility and opens the chest.', 'https://www.youtube.com/embed/tX84O_YsHPg')">
+                <td>Tree Pose (Vrikshasana)</td>
+                <td>A balancing pose that strengthens the legs and improves focus and concentration. It also enhances hip flexibility and opens the chest.</td>
+                <td>Intermediate</td>
+                <td>Improves balance, strengthens legs, tones abdominal muscles.</td>
+                <td>Avoid if you have ankle or knee injuries.</td>
+                <td>Variations include hands in prayer position or arms extended overhead.</td>
+            </tr>
+            <tr onclick="openModal('Warrior II Pose (Virabhadrasana II)', 'An energizing pose that builds strength in the legs and arms while opening the hips and chest. It improves stamina and balance.', 'https://www.youtube.com/embed/tBq_fJb2SgY')">
+                <td>Warrior II Pose (Virabhadrasana II)</td>
+                <td>An energizing pose that builds strength in the legs and arms while opening the hips and chest. It improves stamina and balance.</td>
+                <td>Intermediate</td>
+                <td>Strengthens legs and arms, stretches hips and groins.</td>
+                <td>Avoid if you have high blood pressure or neck problems.</td>
+                <td>Variations include reversing the warrior or binding the arms.</td>
+            </tr>
+            <tr onclick="openModal('Cobra Pose (Bhujangasana)', 'A gentle backbend that stretches the spine, chest, and shoulders, while strengthening the back muscles. It also helps to relieve stress and fatigue.', 'https://www.youtube.com/embed/UB0T9Eb3_Fg')">
+                <td>Cobra Pose (Bhujangasana)</td>
+                <td>A gentle backbend that stretches the spine, chest, and shoulders, while strengthening the back muscles. It also helps to relieve stress and fatigue.</td>
+                <td>Beginner</td>
+                <td>Opens the chest, strengthens the spine, massages abdominal organs.</td>
+                <td>Avoid if you have a back injury or recent abdominal surgery.</td>
+                <td>Variations include baby cobra or upward facing dog.</td>
+            </tr>
+            <tr onclick="openModal('Child\'s Pose (Balasana)', 'A resting pose that stretches the hips, thighs, and ankles while calming the mind and relieving stress. It promotes relaxation and deep breathing.', 'https://www.youtube.com/embed/g3oZbzYQsw0')">
+                <td>Child's Pose (Balasana)</td>
+                <td>A resting pose that stretches the hips, thighs, and ankles while calming the mind and relieving stress. It promotes relaxation and deep breathing.</td>
+                <td>Beginner</td>
+                <td>Stretches hips, thighs, and ankles, relieves neck and lower back pain.</td>
+                <td>Avoid if you have knee injuries or are pregnant.</td>
+                <td>Variations include wide-legged child's pose or extended child's pose.</td>
+            </tr>
+            <!-- Additional poses -->
+            <tr onclick="openModal('Corpse Pose (Savasana)', 'A relaxation pose often used for ending a yoga practice. It allows the body and mind to relax completely, promoting deep rest and rejuvenation.', 'https://www.youtube.com/embed/C4GliMSmWag')">
+                <td>Corpse Pose (Savasana)</td>
+                <td>A relaxation pose often used for ending a yoga practice. It allows the body and mind to relax completely, promoting deep rest and rejuvenation.</td>
+                <td>Beginner</td>
+                <td>Promotes relaxation, reduces stress and anxiety, improves sleep quality.</td>
+                <td>No specific contraindications, suitable for all levels.</td>
+                <td>Focus on deep breathing or use props for comfort.</td>
+            </tr>
+            <tr onclick="openModal('Bridge Pose (Setu Bandhasana)', 'Strengthens the back, buttocks, and hamstrings while opening the chest. It can help alleviate stress and mild depression by stimulating the nervous system.', 'https://www.youtube.com/embed/U5bH5JFs84E')">
+                <td>Bridge Pose (Setu Bandhasana)</td>
+                <td>Strengthens the back, buttocks, and hamstrings while opening the chest. It can help alleviate stress and mild depression by stimulating the nervous system.</td>
+                <td>Intermediate</td>
+                <td>Stretches the spine, improves digestion, reduces backaches.</td>
+                <td>Avoid if you have neck or shoulder injuries.</td>
+                <td>Variations include one-leg bridge or supported bridge with a block.</td>
+            </tr>
+            <tr onclick="openModal('Seated Forward Bend (Paschimottanasana)', 'A seated yoga pose that stretches the hamstrings, lower back, and spine. It also helps calm the mind and relieve stress.', 'https://www.youtube.com/embed/4pKly2JojMw')">
+                <td>Seated Forward Bend (Paschimottanasana)</td>
+                <td>A seated yoga pose that stretches the hamstrings, lower back, and spine. It also helps calm the mind and relieve stress.</td>
+                <td>Intermediate</td>
+                <td>Improves flexibility of the spine, massages abdominal organs, reduces anxiety.</td>
+                <td>Avoid if you have a lower back injury.</td>
+                <td>Variations include wide-legged forward bend or using a strap for assistance.</td>
+            </tr>
+            <tr onclick="openModal('Eagle Pose (Garudasana)', 'A standing pose that improves balance and focus while stretching the shoulders, upper back, and legs. It also stimulates circulation and improves joint mobility.', 'https://www.youtube.com/embed/gXgtmTF0xYM')">
+                <td>Eagle Pose (Garudasana)</td>
+                <td>A standing pose that improves balance and focus while stretching the shoulders, upper back, and legs. It also stimulates circulation and improves joint mobility.</td>
+                <td>Intermediate</td>
+                <td>Improves concentration, stretches shoulders and upper back, strengthens legs.</td>
+                <td>Avoid if you have knee or ankle injuries.</td>
+                <td>Variations include arm variations or resting the back foot on the ground.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal for Pose Details -->
+    <div id="poseModal" class="modal">
+        <div class="modal-content modal-background">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Pose Name</h2>
+            <p id="modalDescription">Pose Description</p>
+            <div id="modalVideo" class="video-container">
+                <!-- Embed YouTube video or other instructional content -->
+            </div>
         </div>
     </div>
+
+    <!-- Overlay for closing modal on outside click -->
+    <div id="overlay" class="overlay" onclick="closeModal()"></div>
+
+    <!-- Print Button -->
+    <button class="print-button" onclick="window.print()">Print Yoga Poses Chart</button>
+
+    <!-- Footer -->
+    <div class="footer">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Contact Us</a>
+    </div>
+
 </div>
 
 <script>
-// Modal functions
-function openModal(poseName, poseDescription, videoUrl) {
-    document.getElementById("modalTitle").textContent = poseName;
-    document.getElementById("modalDescription").textContent = poseDescription;
+    // Modal functions
+    function openModal(poseName, poseDescription, videoUrl) {
+        document.getElementById("modalTitle").textContent = poseName;
+        document.getElementById("modalDescription").textContent = poseDescription;
 
-    // If you have a video URL, embed it in the modal
-    if (videoUrl) {
-        document.getElementById("modalVideo").innerHTML = '<iframe width="560" height="315" src="' + videoUrl + '" frameborder="0" allowfullscreen></iframe>';
-    } else {
-        document.getElementById("modalVideo").innerHTML = ''; // Clear previous video content
+        // If you have a video URL, embed it in the modal
+        if (videoUrl) {
+            document.getElementById("modalVideo").innerHTML = '<iframe width="560" height="315" src="' + videoUrl + '" frameborder="0" allowfullscreen></iframe>';
+        } else {
+            document.getElementById("modalVideo").innerHTML = ''; // Clear previous video content
+        }
+
+        document.getElementById("poseModal").style.display = "block";
+        document.getElementById("overlay").style.display = "block"; // Show overlay
     }
 
-    document.getElementById("poseModal").style.display = "block";
-}
+    function closeModal() {
+        document.getElementById("poseModal").style.display = "none";
+        document.getElementById("overlay").style.display = "none"; // Hide overlay
+    }
 
-function closeModal() {
-    document.getElementById("poseModal").style.display = "none";
-}
+    // Search and Filter functions
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.querySelector("table");
+        tr = table.getElementsByTagName("tr");
 
-// Search and Filter functions
-function searchTable() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-    table = document.querySelector("table");
-    tr = table.getElementsByTagName("tr");
-
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
             }
         }
     }
-}
 
-function filterTable() {
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("filterSelect");
-    filter = input.value.toUpperCase();
-    table = document.querySelector("table");
-    tr = table.getElementsByTagName("tr");
+    function filterTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("filterSelect");
+        filter = input.value.toUpperCase();
+        table = document.querySelector("table");
+        tr = table.getElementsByTagName("tr");
 
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2]; // Filter by difficulty (3rd column)
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (filter === "" || txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2]; // Filter by difficulty (3rd column)
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (filter === "" || txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
             }
         }
     }
-}
 </script>
 
 </body>
 </html>
-```
